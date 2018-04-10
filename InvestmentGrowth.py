@@ -5,7 +5,7 @@ from matplotlib.ticker import FuncFormatter
 
 fields = ('Annual Contribution', 'Growth Rate', 'Current Age', 'Retirement Age','Current Portfolio Value','Retirement Income')
 
-def makeform(root, fields):
+def make_form(root, fields):
    entries = {}
    for field in fields:
       row = Frame(root)
@@ -18,7 +18,7 @@ def makeform(root, fields):
       entries[field] = ent
    return entries
 
-def CalculatePortfolio(entries):
+def calculate_portfolio(entries):
     contribution = (float(entries['Annual Contribution'].get()))
     growthRate = (float(entries['Growth Rate'].get()))
     currentAge = (int(entries['Current Age'].get()))
@@ -41,9 +41,9 @@ def CalculatePortfolio(entries):
         ageSpread.append(currentAge)
         portfolioSpread.append(balance)
 
-    PlotChart(ageSpread,portfolioSpread)
+    plot_chart(ageSpread,portfolioSpread)
 
-def PlotChart(ageSpread,portfolioSpread):
+def plot_chart(ageSpread,portfolioSpread):
         formatter = FuncFormatter(millions)
         fig,ax = plt.subplots()
         ax.yaxis.set_major_formatter(formatter)
@@ -61,9 +61,9 @@ def millions(x, pos):
 if __name__ == '__main__':
    root = Tk()
    root.wm_title("Portfolio Growth Estimator")
-   ents = makeform(root, fields)
+   ents = make_form(root, fields)
    root.bind('<Return>', (lambda event, e=ents: fetch(e)))
-   b1 = Button(root, text='Calculate',command=(lambda e=ents: CalculatePortfolio(e)))
+   b1 = Button(root, text='Calculate',command=(lambda e=ents: calculate_portfolio(e)))
 
 
 
